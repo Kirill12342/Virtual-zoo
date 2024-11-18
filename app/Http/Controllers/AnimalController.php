@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Animal;
 use App\Models\Cage;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class AnimalController extends Controller
 {
@@ -70,7 +71,7 @@ class AnimalController extends Controller
         ]);
 
         $cage = Cage::find($request->cage_id);
-        if ($cage->animals->count() >= $cage->capacity) {
+        if ($request->cage_id != $animal->cage_id && $cage->animals->count() >= $cage->capacity) {
             return redirect()->back()->withErrors(['cage_id' => 'В этой клетке нет свободного места.']);
         }
 
