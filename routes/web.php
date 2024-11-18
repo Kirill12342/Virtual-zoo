@@ -5,7 +5,7 @@ use App\Http\Controllers\AuthController;
 
 Route::get('/', [CageController::class, 'index']);
 Route::resource('cages', CageController::class);
-Route::resource('animals', AnimalController::class)->except(['create', 'store', 'edit', 'update', 'destroy']);
+Route::resource('animals', AnimalController::class);
 
 Route::middleware(['auth'])->group(function () {
     Route::resource('animals', AnimalController::class)->only(['create', 'store', 'edit', 'update', 'destroy']);

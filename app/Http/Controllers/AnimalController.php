@@ -3,9 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Animal;
-use App\Models\Cage; 
+use App\Models\Cage;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Storage;
 
 class AnimalController extends Controller
 {
@@ -31,6 +30,11 @@ class AnimalController extends Controller
             'cage_id' => 'required|exists:cages,id',
             'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
         ]);
+
+        $cage = Cage::find($request->cage_id);
+        if ($cage->animals->count() >= $cage->capacity) {
+            return redirect()->back()->withErrors(['cage_id' => 'В этой клетке нет свободного места.']);
+        }
 
         $data = $request->all();
 
@@ -64,6 +68,11 @@ class AnimalController extends Controller
             'cage_id' => 'required|exists:cages,id',
             'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
         ]);
+
+        $cage = Cage::find($request->cage_id);
+        if ($cage->animals->count() >= $cage->capacity) {
+            return redirect()->back()->withErrors(['cage_id' => 'В этой клетке нет свободного места.']);
+        }
 
         $data = $request->all();
 

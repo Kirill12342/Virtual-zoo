@@ -15,13 +15,13 @@
                     <div class="card-body">
                         <h5 class="card-title">{{ $animal->name }}</h5>
                         <p class="card-text">Вид: {{ $animal->species }}</p>
-                        <a href="{{ route('animals.show', $animal->id) }}" class="btn btn-info">Просмотр</a>
+                        <a href="{{ route('animals.show', $animal->id) }}" class="btn btn-info mb-2">Просмотр</a>
                         @auth
-                            <a href="{{ route('animals.edit', $animal->id) }}" class="btn btn-warning">Редактировать</a>
+                            <a href="{{ route('animals.edit', $animal->id) }}" class="btn btn-warning mb-2">Редактировать</a>
                             <form action="{{ route('animals.destroy', $animal->id) }}" method="POST" class="d-inline">
                                 @csrf
                                 @method('DELETE')
-                                <button type="submit" class="btn btn-danger" onclick="return confirm('Вы уверены, что хотите удалить это животное?')">Удалить</button>
+                                <button type="submit" class="btn btn-danger mb-2" onclick="return confirm('Вы уверены, что хотите удалить это животное?')">Удалить</button>
                             </form>
                         @endauth
                     </div>

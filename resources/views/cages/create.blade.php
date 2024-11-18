@@ -2,17 +2,28 @@
 @extends('layouts.app')
 
 @section('content')
-    <h1>Добавить клетку</h1>
-    <form action="{{ route('cages.store') }}" method="POST">
-        @csrf
-        <div class="form-group">
-            <label for="name">Название:</label>
-            <input type="text" name="name" id="name" class="form-control" required>
-        </div>
-        <div class="form-group">
-            <label for="capacity">Вместимость:</label>
-            <input type="number" name="capacity" id="capacity" class="form-control" required>
-        </div>
-        <button type="submit" class="btn btn-primary">Сохранить</button>
-    </form>
+    <div class="container">
+        <h1>Добавить клетку</h1>
+        @if ($errors->any())
+            <div class="alert alert-danger">
+                <ul>
+                    @foreach ($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
+            </div>
+        @endif
+        <form action="{{ route('cages.store') }}" method="POST">
+            @csrf
+            <div class="form-group">
+                <label for="name">Название</label>
+                <input type="text" name="name" id="name" class="form-control" required>
+            </div>
+            <div class="form-group">
+                <label for="capacity">Вместимость</label>
+                <input type="number" name="capacity" id="capacity" class="form-control" min="1" required>
+            </div>
+            <button type="submit" class="btn btn-primary">Добавить</button>
+        </form>
+    </div>
 @endsection

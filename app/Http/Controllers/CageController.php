@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Cage;
-use App\Models\Animal; // Добавьте эту строку
+use App\Models\Animal;
 use Illuminate\Http\Request;
 
 class CageController extends Controller
@@ -24,7 +24,9 @@ class CageController extends Controller
     {
         $request->validate([
             'name' => 'required',
-            'capacity' => 'required|integer',
+            'capacity' => 'required|integer|min:1', 
+        ], [
+            'capacity.min' => 'Вместимость клетки должна быть не менее одного животного.',
         ]);
 
         Cage::create($request->all());
@@ -40,9 +42,9 @@ class CageController extends Controller
     {
         $request->validate([
             'name' => 'required',
-            'capacity' => 'required|integer|min:' . $cage->animals->count(),
+            'capacity' => 'required|integer|min:' . max(1, $cage->animals->count()), 
         ], [
-            'capacity.min' => 'Вместимость клетки не может быть меньше количества проживающих в ней животных.',
+            'capacity.min' => 'Вместимость клетки не может быть меньше количества проживающих в ней животных и должна быть не менее одного.',
         ]);
 
         $cage->update($request->all());

@@ -16,13 +16,14 @@
                     <div class="card-body">
                         <h5 class="card-title">{{ $cage->name }}</h5>
                         <p class="card-text">Вместимость: {{ $cage->capacity }}</p>
-                        <a href="{{ route('cages.show', $cage->id) }}" class="btn btn-info">Просмотр</a>
+                        <p class="card-text">Количество животных: {{ $cage->animals->count() }}</p>
+                        <a href="{{ route('cages.show', $cage->id) }}" class="btn btn-info mb-2">Просмотр</a>
                         @auth
-                            <a href="{{ route('cages.edit', $cage->id) }}" class="btn btn-warning">Редактировать</a>
+                            <a href="{{ route('cages.edit', $cage->id) }}" class="btn btn-warning mb-2">Редактировать</a>
                             <form action="{{ route('cages.destroy', $cage->id) }}" method="POST" class="d-inline">
                                 @csrf
                                 @method('DELETE')
-                                <button type="submit" class="btn btn-danger" onclick="return confirm('Вы уверены, что хотите удалить эту клетку?')">Удалить</button>
+                                <button type="submit" class="btn btn-danger mb-2" onclick="return confirm('Вы уверены, что хотите удалить эту клетку?')">Удалить</button>
                             </form>
                         @endauth
                     </div>
