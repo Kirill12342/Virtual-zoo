@@ -19,7 +19,11 @@
                         <a href="{{ route('cages.show', $cage->id) }}" class="btn btn-info">Просмотр</a>
                         @auth
                             <a href="{{ route('cages.edit', $cage->id) }}" class="btn btn-warning">Редактировать</a>
-                            <button class="btn btn-danger" data-toggle="modal" data-target="#deleteModal" data-id="{{ $cage->id }}">Удалить</button>
+                            <form action="{{ route('cages.destroy', $cage->id) }}" method="POST" class="d-inline">
+                                @csrf
+                                @method('DELETE')
+                                <button type="submit" class="btn btn-danger" onclick="return confirm('Вы уверены, что хотите удалить эту клетку?')">Удалить</button>
+                            </form>
                         @endauth
                     </div>
                 </div>

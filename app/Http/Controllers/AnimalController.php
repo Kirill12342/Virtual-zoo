@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Animal;
-use App\Models\Cage;
+use App\Models\Cage; 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 

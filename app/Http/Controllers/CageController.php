@@ -1,8 +1,9 @@
 <?php
+
 namespace App\Http\Controllers;
 
 use App\Models\Cage;
-use App\Models\Animal;
+use App\Models\Animal; // Добавьте эту строку
 use Illuminate\Http\Request;
 
 class CageController extends Controller
@@ -30,7 +31,6 @@ class CageController extends Controller
         return redirect()->route('cages.index');
     }
 
-
     public function edit(Cage $cage)
     {
         return view('cages.edit', compact('cage'));
@@ -51,15 +51,16 @@ class CageController extends Controller
 
     public function destroy(Cage $cage)
     {
+        if ($cage->animals()->count() > 0) {
+            return redirect()->route('cages.index')->with('error', 'Невозможно удалить клетку, в которой есть животные.');
+        }
+
         $cage->delete();
-        return redirect()->route('cages.index');
+        return redirect()->route('cages.index')->with('success', 'Клетка успешно удалена');
     }
 
     public function show(Cage $cage)
     {
         return view('cages.show', compact('cage'));
     }
-
-
-    
 }

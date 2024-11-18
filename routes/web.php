@@ -9,6 +9,7 @@ Route::resource('animals', AnimalController::class)->except(['create', 'store', 
 
 Route::middleware(['auth'])->group(function () {
     Route::resource('animals', AnimalController::class)->only(['create', 'store', 'edit', 'update', 'destroy']);
+    Route::resource('cages', CageController::class)->only(['create', 'store', 'edit', 'update', 'destroy']);
 });
 
 Route::get('/login', [AuthController::class, 'showLoginForm'])->name('login');
